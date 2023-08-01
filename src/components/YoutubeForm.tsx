@@ -36,13 +36,9 @@ export default function YoutubeForm() {
               value: /^\S+@\S+\.\S+$/,
               message: 'Invalid email format',
             },
-            minLength: {
-              value: 5,
-              message: 'Email must be at least 5 characters in length',
-            },
-            maxLength: {
-              value: 160,
-              message: 'Emails are only allowed to have a maximum of 160 characters',
+            validate: {
+              notAdmin: (value) => value !== 'admin@admin.com' || 'You cannot use email with admin@admin.com',
+              notUser: (value) => !value.endsWith('baddomain.com') || "You can't use email ending with baddomain.com",
             },
           })}
         />
