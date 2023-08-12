@@ -7,6 +7,30 @@ interface IYouTubeForm {
   channel: string
 }
 
+interface Data {
+  id: number
+  name: string
+  username: string
+  email: string
+  address: {
+    street: string
+    suite: string
+    city: string
+    zipcode: string
+    geo: {
+      lat: string
+      lng: string
+    }
+  }
+  phone: string
+  website: string
+  company: {
+    name: string
+    catchPhrase: string
+    bs: string
+  }
+}
+
 export default function YoutubeForm() {
   const {
     register,
@@ -14,10 +38,14 @@ export default function YoutubeForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<IYouTubeForm>({
-    defaultValues: {
-      username: 'Bruce Wayne',
-      email: '',
-      channel: '',
+    defaultValues: async () => {
+      const response = await fetch('https://jsonplaceholder.typicode.com/users/1')
+      const data: Data = await response.json()
+      return {
+        username: data.username,
+        email: data.email,
+        channel: data.website,
+      }
     },
   })
 
