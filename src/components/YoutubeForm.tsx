@@ -5,29 +5,9 @@ interface IYouTubeForm {
   username: string
   email: string
   channel: string
-}
-
-interface Data {
-  id: number
-  name: string
-  username: string
-  email: string
-  address: {
-    street: string
-    suite: string
-    city: string
-    zipcode: string
-    geo: {
-      lat: string
-      lng: string
-    }
-  }
-  phone: string
-  website: string
-  company: {
-    name: string
-    catchPhrase: string
-    bs: string
+  social: {
+    twitter: string
+    facebook: string
   }
 }
 
@@ -38,14 +18,14 @@ export default function YoutubeForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<IYouTubeForm>({
-    defaultValues: async () => {
-      const response = await fetch('https://jsonplaceholder.typicode.com/users/1')
-      const data: Data = await response.json()
-      return {
-        username: data.username,
-        email: data.email,
-        channel: data.website,
-      }
+    defaultValues: {
+      username: 'Bruce Wayne',
+      email: '',
+      channel: '',
+      social: {
+        twitter: '',
+        facebook: '',
+      },
     },
   })
 
@@ -56,10 +36,12 @@ export default function YoutubeForm() {
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
+        {/* Username */}
         <label htmlFor="username">Username</label>
         <input type="text" id="username" {...register('username', { required: 'Username is required' })} />
         <p className="error">{errors.username?.message}</p>
-
+        {/* End Username */}
+        {/* Email */}
         <label htmlFor="email">Email</label>
         <input
           type="email"
@@ -77,14 +59,27 @@ export default function YoutubeForm() {
           })}
         />
         <p className="error">{errors.email?.message}</p>
-
+        {/* End Email */}
+        {/* Channel */}
         <label htmlFor="channel">Channel</label>
         <input type="text" id="channel" {...register('channel', { required: 'Channel is required' })} />
         <p className="error">{errors.channel?.message}</p>
-
+        {/* End Channel */}
+        {/* Twitter */}
+        <label htmlFor="twitter">Twitter</label>
+        <input type="text" id="twitter" {...register('social.twitter')} />
+        <p className="error"></p>
+        {/* End Twitter */}
+        {/* Facebook */}
+        <label htmlFor="facebook">Facebook</label>
+        <input type="text" id="facebook" {...register('social.facebook')} />
+        <p className="error"></p>
+        {/* End Facebook */}
+        {/* Button */}
         <button className="submit-btn" type="submit">
           Submit
         </button>
+        {/* End Button */}
       </form>
 
       <DevTool control={control} />
