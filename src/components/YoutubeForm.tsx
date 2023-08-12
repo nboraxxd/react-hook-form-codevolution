@@ -13,7 +13,13 @@ export default function YoutubeForm() {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<IYouTubeForm>()
+  } = useForm<IYouTubeForm>({
+    defaultValues: {
+      username: 'Bruce Wayne',
+      email: '',
+      channel: '',
+    },
+  })
 
   const onSubmit = (data: IYouTubeForm) => {
     console.log(data)
