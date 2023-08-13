@@ -9,6 +9,7 @@ interface IYouTubeForm {
     twitter: string
     facebook: string
   }
+  phoneNumbers: string[]
 }
 
 export default function YoutubeForm() {
@@ -26,6 +27,7 @@ export default function YoutubeForm() {
         twitter: '',
         facebook: '',
       },
+      phoneNumbers: ['', ''],
     },
   })
 
@@ -75,6 +77,15 @@ export default function YoutubeForm() {
         <input type="text" id="facebook" {...register('social.facebook')} />
         <p className="error"></p>
         {/* End Facebook */}
+        {/* Phone Numbers */}
+        <label htmlFor="primary-phone">Primary Phone Numbers</label>
+        <input type="text" id="primary-phone" {...register('phoneNumbers.0')} />
+        <p className="error"></p>
+
+        <label htmlFor="secondary-phone">Secondary Phone Numbers</label>
+        <input type="text" id="secondary-phone" {...register('phoneNumbers.1')} />
+        <p className="error"></p>
+        {/* End Phone Numbers */}
         {/* Button */}
         <button className="submit-btn" type="submit">
           Submit
