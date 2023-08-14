@@ -1,5 +1,6 @@
 import { useFieldArray, useForm } from 'react-hook-form'
 import { DevTool } from '@hookform/devtools'
+import { useEffect } from 'react'
 
 interface IYouTubeForm {
   username: string
@@ -23,6 +24,7 @@ export default function YoutubeForm() {
     control,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm<IYouTubeForm>({
     defaultValues: {
       username: 'Bruce Wayne',
@@ -44,9 +46,21 @@ export default function YoutubeForm() {
     control,
   })
 
+  useEffect(() => {
+    const subcription = watch((value) => {
+      console.log(value)
+    })
+
+    return () => subcription.unsubscribe()
+  }, [watch])
+
   const onSubmit = (data: IYouTubeForm) => {
     console.log(data)
   }
+
+  const watchChannel = watch('channel')
+  console.log('🔥 ~ YoutubeForm ~ watchForm:', watchChannel)
+  console.log('render')
 
   return (
     <div>
