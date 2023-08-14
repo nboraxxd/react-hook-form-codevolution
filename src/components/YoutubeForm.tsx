@@ -13,6 +13,8 @@ interface IYouTubeForm {
   phNumbers: {
     number: string
   }[]
+  age: number
+  dob: Date
 }
 
 export default function YoutubeForm() {
@@ -32,6 +34,8 @@ export default function YoutubeForm() {
       },
       phoneNumbers: ['', ''],
       phNumbers: [{ number: '' }],
+      age: 0,
+      dob: new Date(),
     },
   })
 
@@ -115,6 +119,20 @@ export default function YoutubeForm() {
           </button>
         </div>
         {/* End Ph Numbers */}
+        {/* Age */}
+        <label htmlFor="age">Age</label>
+        <input type="number" id="age" {...register('age', { valueAsNumber: true, required: 'Age is required' })} />
+        <p className="error">{errors.age?.message}</p>
+        {/* End Age */}
+        {/* DOB */}
+        <label htmlFor="dob">Date of birth</label>
+        <input
+          type="date"
+          id="dob"
+          {...register('dob', { valueAsDate: true, required: 'Date of birth is required' })}
+        />
+        <p className="error">{errors.dob?.message}</p>
+        {/* End DOB */}
         {/* Button */}
         <button className="submit-btn" type="submit">
           Submit
