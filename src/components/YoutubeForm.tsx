@@ -25,6 +25,8 @@ export default function YoutubeForm() {
     handleSubmit,
     formState: { errors },
     watch,
+    getValues,
+    setValue,
   } = useForm<IYouTubeForm>({
     defaultValues: {
       username: 'Bruce Wayne',
@@ -58,9 +60,16 @@ export default function YoutubeForm() {
     console.log(data)
   }
 
-  const watchChannel = watch('channel')
-  console.log('🔥 ~ YoutubeForm ~ watchForm:', watchChannel)
-  console.log('render')
+  function handleSetValue() {
+    setValue('username', '', {
+      shouldValidate: true,
+      shouldTouch: true,
+    })
+  }
+
+  function handleGetValues() {
+    console.log('Get values', getValues(['username', 'channel']))
+  }
 
   return (
     <div>
@@ -152,6 +161,16 @@ export default function YoutubeForm() {
           Submit
         </button>
         {/* End Button */}
+        {/* Get Value */}
+        <button className="submit-btn" type="submit" onClick={handleGetValues}>
+          Get Value
+        </button>
+        {/* End Get Value */}
+        {/* Set Value */}
+        <button className="submit-btn" type="submit" onClick={handleSetValue}>
+          Set Value
+        </button>
+        {/* End Set Value */}
       </form>
 
       <DevTool control={control} />
