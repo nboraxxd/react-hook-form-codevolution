@@ -19,15 +19,7 @@ interface IYouTubeForm {
 }
 
 export default function YoutubeForm() {
-  const {
-    register,
-    control,
-    handleSubmit,
-    formState: { errors },
-    watch,
-    getValues,
-    setValue,
-  } = useForm<IYouTubeForm>({
+  const form = useForm<IYouTubeForm>({
     defaultValues: {
       username: 'Bruce Wayne',
       email: '',
@@ -42,6 +34,11 @@ export default function YoutubeForm() {
       dob: new Date(),
     },
   })
+
+  const { register, control, handleSubmit, formState, watch, getValues, setValue } = form
+
+  const { errors, touchedFields, dirtyFields, isDirty } = formState
+  console.log('🔥 ~ YoutubeForm ~ touchedFields:', { touchedFields, dirtyFields, isDirty })
 
   const { fields, append, remove } = useFieldArray({
     name: 'phNumbers',
