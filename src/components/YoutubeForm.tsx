@@ -1,4 +1,4 @@
-import { useFieldArray, useForm } from 'react-hook-form'
+import { useFieldArray, useForm, type FieldErrors } from 'react-hook-form'
 import { DevTool } from '@hookform/devtools'
 import { useEffect } from 'react'
 
@@ -37,8 +37,13 @@ export default function YoutubeForm() {
 
   const { register, control, handleSubmit, formState, watch, getValues, setValue } = form
 
-  const { errors, touchedFields, dirtyFields, isDirty } = formState
-  console.log('🔥 ~ YoutubeForm ~ touchedFields:', { touchedFields, dirtyFields, isDirty })
+  const {
+    errors,
+    // touchedFields,
+    // dirtyFields,
+    // isDirty
+  } = formState
+  // console.log('🔥 ~ YoutubeForm ~ touchedFields:', { touchedFields, dirtyFields, isDirty })
 
   const { fields, append, remove } = useFieldArray({
     name: 'phNumbers',
@@ -54,7 +59,11 @@ export default function YoutubeForm() {
   }, [watch])
 
   const onSubmit = (data: IYouTubeForm) => {
-    console.log(data)
+    console.log('🔥 ~ onSubmit ~ data:', data)
+  }
+
+  const onError = (errors: FieldErrors<IYouTubeForm>) => {
+    console.log('🔥 ~ onError ~ errors:', errors)
   }
 
   function handleSetValue() {
@@ -70,7 +79,7 @@ export default function YoutubeForm() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+      <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
         {/* Username */}
         <label htmlFor="username">Username</label>
         <input type="text" id="username" {...register('username', { required: 'Username is required' })} disabled />
