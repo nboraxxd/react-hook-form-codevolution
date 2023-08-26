@@ -73,7 +73,7 @@ export default function YoutubeForm() {
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         {/* Username */}
         <label htmlFor="username">Username</label>
-        <input type="text" id="username" {...register('username', { required: 'Username is required' })} />
+        <input type="text" id="username" {...register('username', { required: 'Username is required' })} disabled />
         <p className="error">{errors.username?.message}</p>
         {/* End Username */}
         {/* Email */}
@@ -102,8 +102,15 @@ export default function YoutubeForm() {
         {/* End Channel */}
         {/* Twitter */}
         <label htmlFor="twitter">Twitter</label>
-        <input type="text" id="twitter" {...register('social.twitter')} />
-        <p className="error"></p>
+        <input
+          type="text"
+          id="twitter"
+          {...register('social.twitter', {
+            disabled: watch('channel') === '',
+            required: 'Enter twitter profile',
+          })}
+        />
+        <p className="error">{errors.social?.twitter?.message}</p>
         {/* End Twitter */}
         {/* Facebook */}
         <label htmlFor="facebook">Facebook</label>
